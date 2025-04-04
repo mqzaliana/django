@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>В вашей корзине нет товаров.</h1>
+    <h2>Ваша корзина</h2>
+{% if products_in_cart %}
+    <ul>
+        {% for product in products_in_cart %}
+            <li>{{ product.name }} - {{ product.price }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>{{ message }}</p>
+{% endif %}
+   
+    <a href="{% url 'catalog' %}">Перейти в каталог</a>
+    <a href="{% url 'home' %}">На главную</a>
+    <a href="{% url 'logout' %}">Выйти</a>
+    {% for product in products %}
+    <div>
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.price }}</p>
+        <!-- Ссылка на URL для добавления товара в корзину -->
+        <a href="{% url 'add_to_cart' product.id %}">
+            <button>Добавить в корзину</button>
+        </a>
+    </div>
+{% endfor %}
+    <h2>Товары в избранном</h2>
+    {% if products_in_favorites %}
+        <ul>
+            {% for product in products_in_favorites %}
+                <li>{{ product.name }} - {{ product.price }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Нет избранных товаров.</p>
+    {% endif %}
+
+
+</body>
+</html>
+

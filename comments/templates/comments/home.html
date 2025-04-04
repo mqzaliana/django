@@ -1,0 +1,99 @@
+{% extends 'comments/base.html' %}
+<style> .catalog-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Стили для карточки товара */
+.product-card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Начальная тень */
+    transition: box-shadow 0.3s ease; /* Плавный переход для тени */
+}
+
+/* Эффект при наведении на карточку товара */
+.product-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Более выраженная тень при наведении */
+}
+
+.product-image {
+    width: 200px;
+    height: 150px;
+    max-width: 200px;
+    margin-bottom: 10px;
+}
+
+.product-name {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    color: #333;
+}
+
+.product-description {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.product-price {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.favorite-btn {
+    background-color: #f39c12;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.favorite-btn:hover {
+    background-color: #e67e22;
+}</style>
+{% block content %}
+   
+    <div class="catalog-container">
+        <h1>Каталог товаров</h1>
+        <div class="products">
+            {% for product in products %}
+                <div class="product-card">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+                    <h2 class="product-name">{{ product.name }}</h2>
+                    <p class="product-description">{{ product.description }}</p>
+                    <p class="product-price">{{ product.price }}₽</p>
+                    <a href="{% url 'add_to_cart' product.id %}">
+                    <button class="favorite-btn">В Корзину</button></a>
+                   
+                 
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
